@@ -2,6 +2,7 @@ package vn.vttek.elecs.entities;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.sql.Timestamp;
 import java.util.Date;
 
 @Entity
@@ -74,5 +75,8 @@ public class Department implements Serializable {
 
     public void setCreated_on(Date created_on) {
         this.created_on = created_on;
+    }
+
+    public void setModified_on(Timestamp modified_on) {
     }
 }

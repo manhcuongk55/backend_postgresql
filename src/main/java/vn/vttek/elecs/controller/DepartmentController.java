@@ -5,6 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import vn.vttek.elecs.entities.Department;
+import vn.vttek.elecs.exception.ResourceNotFoundException;
 import vn.vttek.elecs.repository.DepartmentRepository;
 
 import javax.validation.Valid;
@@ -28,7 +29,7 @@ public class DepartmentController {
 	    }
 
 	    @PutMapping("/department/{departmentId}")
-	    public Department updateDepartment(@PathVariable int departmentId,
+	    public Department updateDepartment(@PathVariable Long departmentId,
 	                                   @Valid @RequestBody Department departmentRequest) {
 	        return departmentRepository.findById(departmentId)
 	                .map(department -> {

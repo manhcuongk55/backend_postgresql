@@ -5,18 +5,20 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import vn.vttek.elecs.entities.Model;
+import vn.vttek.elecs.exception.ResourceNotFoundException;
 import vn.vttek.elecs.repository.ModelRepository;
 
 import javax.validation.Valid;
 
 @RestController
-public class ModelController<Model> {
+public class ModelController{
 	    @Autowired
-	    private ModelRepository Model;
+	    private ModelRepository modelRepository;
 
 	    @GetMapping("/model")
 	    public Page<Model> getModel(Pageable pageable) {
-	    	return (Page<Model>) ModelRepository.findAll();
+	    	return (Page<Model>) modelRepository.findAll();
 	    }
 
 
@@ -26,7 +28,7 @@ public class ModelController<Model> {
 	    }
 
 	    @PutMapping("/model/{modelId}")
-	    public Model updateModel(@PathVariable int modelId,
+	    public Model updateModel(@PathVariable Long modelId,
 	                                   @Valid @RequestBody Model modelRequest) {
 	        return modelRepository.findById(modelId)
 	                .map(model -> {
@@ -43,7 +45,7 @@ public class ModelController<Model> {
 
 
 	    @DeleteMapping("/model/{modelId}")
-	    public ResponseEntity<?> deleteModel(@PathVariable int modelId) {
+	    public ResponseEntity<?> deleteModel(@PathVariable Long modelId) {
 	        return modelRepository.findById(modelId)
 	                .map(model -> {
 	                	modelRepository.delete(model);
